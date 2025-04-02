@@ -1,0 +1,9 @@
+
+Django==4.2.19
+asgiref==3.8.1
+dj-database-url==2.3.0
+gunicorn  # If using Gunicorn for deployment
+psycopg2-binary==2.9.10  # If using PostgreSQL
+sqlparse==0.5.3
+tzdata==2025.1
+boto3
