@@ -24,9 +24,9 @@ SECRET_KEY = 'django-insecure-n&ho1i6l9)k9i!2h+%6lgp+h7t)6l%hwj8!znafqv6@t)ms_*8
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['criminalrecords-production.up.railway.app']
+ALLOWED_HOSTS = ['criminalrecords-production.up.railway.app','web-production-7a00.up.railway.app']
 
-CSRF_TRUSTED_ORIGINS = ['https://criminalrecords-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://criminalrecords-production.up.railway.app','https://web-production-7a00.up.railway.app']
 # ALLOWED_HOSTS = ['*']
 LOGIN_REDIRECT_URL = '/search/'
 
