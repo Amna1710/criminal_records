@@ -89,26 +89,28 @@ def get_s3_image(request, record_id):
     # Get the record from the database
     record = CriminalData.objects.get(id=record_id)
     s3_url = record.image  # Get the S3 URL from the database
+    if s3_url:
 
-    # Parse the bucket and key from the URL
-    bucket_name = 'bodycam-mugshots'  # Your bucket name
-    key = s3_url.replace(f"https://{bucket_name}.s3.{settings.AWS_S3_REGION_NAME}.amazonaws.com/", "")
-
-    # Initialize S3 client
-    s3 = boto3.client('s3',
-                      aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                      aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-                      region_name=settings.AWS_S3_REGION_NAME)
-
-    try:
-        # Fetch the image from S3
-        s3_response = s3.get_object(Bucket=bucket_name, Key=key)
-        file_content = s3_response['Body'].read()
-
-        # Return the image response
-        return HttpResponse(file_content, content_type='image/jpeg')
-    except s3.exceptions.NoSuchKey:
-        return HttpResponse("Image not found", status=404)
+        # Parse the bucket and key from the URL
+        bucket_name = 'bodycam-mugshots'  # Your bucket name
+        key = s3_url.replace(f"https://{bucket_name}.s3.{settings.AWS_S3_REGION_NAME}.amazonaws.com/", "")
+    
+        # Initialize S3 client
+        s3 = boto3.client('s3',
+                          aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                          aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                          region_name=settings.AWS_S3_REGION_NAME)
+    
+        try:
+            # Fetch the image from S3
+            s3_response = s3.get_object(Bucket=bucket_name, Key=key)
+            file_content = s3_response['Body'].read()
+    
+            # Return the image response
+            return HttpResponse(file_content, content_type='image/jpeg')
+        except s3.exceptions.NoSuchKey:
+            return HttpResponse("Image not found", status=404)
+    return HttpResponse("Image not found", status=404)
 
 
 def get_current_week_date_range():
