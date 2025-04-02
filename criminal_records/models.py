@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from django.utils import timezone
 
 
 class CriminalData(models.Model):
@@ -31,7 +31,7 @@ class CriminalData(models.Model):
     state = models.TextField(db_column='State', null=True)
     f_response_time = models.TextField(db_column='FOIA Response Time', null=True)
     f_status = models.TextField(db_column='FOIA Status', null=False, default="Pending")
-    created_at = models.DateField(db_column='Created_At',null=False,default=datetime.today().date())
+    created_at = models.DateField(db_column='Created_At',null=False,default=timezone.now)
     assigned_to = models.TextField(db_column='Assigned To',null=True)
 
     class Meta:
